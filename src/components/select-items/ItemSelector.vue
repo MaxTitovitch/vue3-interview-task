@@ -31,6 +31,11 @@ const props = defineProps({
   },
 })
 
+const itemsMaxLimit = computed(() => {
+  return props.items.length >= 6
+    ? 6
+    : props.items.length
+})
 
 const selectedIds = ref([])
 
@@ -44,7 +49,11 @@ const unselectedItems = computed(() => {
 
 const selectItem = id => {
   if (props.multiple) {
-    selectedIds.value.push(id)
+    if (itemsMaxLimit.value > selectedIds.value.length) {
+      selectedIds.value.push(id)
+    } else {
+      alert(`Вы не можете добавить больше ${itemsMaxLimit.value} элементов согласно условию задания!`)
+    }
   } else {
     selectedIds.value = [id]
   }
@@ -72,7 +81,7 @@ const unselectItem = id => {
       </div>
 
       <div class="item-selector__head-title" v-if="multiple">
-        Элементов выбрано: {{ selectedIds.length }} из {{ items.length }}
+        Элементов выбрано: {{ selectedIds.length }} из {{ itemsMaxLimit }}
       </div>
       <div class="item-selector__head-title" v-else>
         {{ selectedIds.length ? 'Выбран' : 'Не выбран' }}
