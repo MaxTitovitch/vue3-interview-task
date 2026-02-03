@@ -40,7 +40,13 @@ const itemsMaxLimit = computed(() => {
 const selectedIds = ref([])
 
 const selectedItems = computed(() => {
-  return props.items.filter(item => selectedIds.value.includes(item.id))
+  return props.items
+    .filter(item => selectedIds.value.includes(item.id))
+    .sort((itemA, itemB) => {
+      return selectedIds.value.indexOf(itemA.id) - selectedIds.value.indexOf(itemB.id);
+    });
+
+
 })
 
 const unselectedItems = computed(() => {
