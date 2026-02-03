@@ -12,6 +12,7 @@
     "lint:eslint": "eslint . --fix --cache"
   },
   "dependencies": {
+    "sass-embedded": "^1.97.3",
     "vue": "^3.5.27"
   },
   "devDependencies": {
